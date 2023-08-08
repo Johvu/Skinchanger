@@ -1,6 +1,6 @@
 name: SkinChanger
 version: '${project.version}'
-main: fi.motimaa.johvu.Main
+main: fi.johvu.skinchanger.Main
 api-version: 1.18
 authors: [ Johvu ]
 depend: [Vault]

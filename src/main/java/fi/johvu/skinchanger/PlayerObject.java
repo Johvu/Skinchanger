@@ -1,4 +1,4 @@
-package fi.motimaa.johvu;
+package fi.johvu.skinchanger;
 
 import lombok.Getter;
 import lombok.Setter;

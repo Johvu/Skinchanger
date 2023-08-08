@@ -1,8 +1,9 @@
-package fi.motimaa.johvu;
+package fi.johvu.skinchanger;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
-import fi.motimaa.johvu.commands.SkinsCommand;
+import fi.johvu.skinchanger.commands.SkinsCommand;
+
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

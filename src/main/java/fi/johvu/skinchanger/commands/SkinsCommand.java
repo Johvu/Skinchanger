@@ -1,8 +1,8 @@
-package fi.motimaa.johvu.commands;
+package fi.johvu.skinchanger.commands;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
-import fi.motimaa.johvu.Main;
-import fi.motimaa.johvu.PlayerObject;
+import fi.johvu.skinchanger.Main;
+import fi.johvu.skinchanger.PlayerObject;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;

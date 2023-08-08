@@ -1,4 +1,4 @@
-package fi.motimaa.johvu;
+package fi.johvu.skinchanger;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.util.RGBLike;

@@ -24,9 +24,9 @@ public class Listeners implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-        HashMap<UUID, PlayerObject> players = Main.getPlayers();
+        HashMap<UUID, PlayerSkin> players = Main.getPlayers();
         if (players.containsKey(p.getUniqueId())) {
-            PlayerObject data = players.get(p.getUniqueId());
+            PlayerSkin data = players.get(p.getUniqueId());
             // check if the skin or group is changed
             URL orgSkin = data.getOrgTexture().getSkin();
             URL skin = p.getPlayerProfile().getTextures().getSkin();

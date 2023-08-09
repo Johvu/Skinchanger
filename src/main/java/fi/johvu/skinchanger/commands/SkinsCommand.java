@@ -2,7 +2,7 @@ package fi.johvu.skinchanger.commands;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import fi.johvu.skinchanger.Main;
-import fi.johvu.skinchanger.PlayerObject;
+import fi.johvu.skinchanger.PlayerSkin;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
@@ -28,11 +28,11 @@ public class SkinsCommand implements CommandExecutor {
         if (sender instanceof Player p) {
             UUID uuid = p.getUniqueId();
             PlayerProfile PlayerSkin = p.getPlayerProfile();
-            HashMap<UUID, PlayerObject> players = Main.getPlayers();
+            HashMap<UUID, fi.johvu.skinchanger.PlayerSkin> players = Main.getPlayers();
 
             if (!players.containsKey(uuid)) {
                 players.put(uuid,
-                        new PlayerObject(uuid, PlayerSkin.getTextures(), null, null, null, null));
+                        new PlayerSkin(uuid, PlayerSkin.getTextures(), null, null, null, null));
             }
 
             if (!(p.hasPermission("motimaa.identtiteettivarkaus"))) {

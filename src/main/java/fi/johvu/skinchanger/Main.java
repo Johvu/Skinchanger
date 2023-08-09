@@ -32,7 +32,7 @@ public final class Main extends JavaPlugin {
     @Getter
     private static HashSet<Player> queue = new HashSet<Player>();
     @Getter
-    private static HashMap<UUID, PlayerObject> players = new HashMap<>();
+    private static HashMap<UUID, PlayerSkin> players = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -77,22 +77,22 @@ public final class Main extends JavaPlugin {
     public void changeSkin(Player p) {
         PlayerProfile playerProfile = p.getPlayerProfile();
         if (!players.containsKey(p.getUniqueId())) {
-            PlayerObject playerObject = new PlayerObject(p.getUniqueId(), p.getPlayerProfile().getTextures(), p.getPlayerProfile().getTextures(), null, null, null);
+            PlayerSkin playerSkin = new PlayerSkin(p.getUniqueId(), p.getPlayerProfile().getTextures(), p.getPlayerProfile().getTextures(), null, null, null);
             try {
                 // load data from data container
-                playerObject.loadFromDataContainer();
+                playerSkin.loadFromDataContainer();
             } catch (ArrayIndexOutOfBoundsException ignored) {
                 // if data dosent found print it
                 System.out.println("§cDataa ei löydetty luodaan uusi data table!");
             }
             // put object to hashset
-            players.put(p.getUniqueId(), playerObject);
+            players.put(p.getUniqueId(), playerSkin);
             System.out.println("§aPelajaa laitettu kantaan!");
             p.setPlayerProfile(playerProfile);
         }
 
         // get the object
-        PlayerObject data = players.get(p.getUniqueId());
+        PlayerSkin data = players.get(p.getUniqueId());
 
         // check that there is everything in the data
         if (data.getNewTexture() != null && data.getTextureKey() != null && data.getGroup() != null) {

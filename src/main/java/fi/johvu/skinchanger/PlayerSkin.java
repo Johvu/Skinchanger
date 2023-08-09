@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.UUID;
 
 @Data
-public class PlayerObject {
+public class PlayerSkin {
 
     private UUID uuid;
     private PlayerTextures orgTexture;
@@ -21,7 +21,7 @@ public class PlayerObject {
     private PlayerTextures newTexture;
     private NamespacedKey Namespacedkey = new NamespacedKey(Main.getPlugin(), "PrisonSkin");
 
-    public PlayerObject(UUID uuid, PlayerTextures orgTexture, PlayerTextures newTexture, String textureKey, String textureValue, String group) {
+    public PlayerSkin(UUID uuid, PlayerTextures orgTexture, PlayerTextures newTexture, String textureKey, String textureValue, String group) {
         this.uuid = uuid;
         this.orgTexture = orgTexture;
         this.newTexture = newTexture;

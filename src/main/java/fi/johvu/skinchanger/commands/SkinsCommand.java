@@ -12,11 +12,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class SkinsCommand implements CommandExecutor {
-
     Main plugin;
-
     Permission perms;
-
 
     public SkinsCommand(Main plugin, Permission perms) {
         this.perms = perms;
@@ -42,7 +39,6 @@ public class SkinsCommand implements CommandExecutor {
             }
             if (args[0].equalsIgnoreCase("skinmerge")){
                 p.sendMessage("Yhdistetään skini");
-
                 plugin.changeSkin(p);
             }
             if (args[0].equalsIgnoreCase("null")){

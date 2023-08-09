@@ -1,17 +1,11 @@
 package fi.johvu.skinchanger;
 
-import net.kyori.adventure.text.Component;
 import net.milkbowl.vault.permission.Permission;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import java.util.Random;
-import java.util.logging.Level;
 
 public class Listeners implements Listener {
     Main plugin;

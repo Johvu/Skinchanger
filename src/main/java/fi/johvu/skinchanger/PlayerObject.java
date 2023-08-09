@@ -1,5 +1,6 @@
 package fi.johvu.skinchanger;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
@@ -14,30 +15,15 @@ import java.net.URL;
 import java.util.UUID;
 import java.util.logging.Level;
 
-
+@Data
 public class PlayerObject {
 
-    @Getter
-    @Setter
     private UUID uuid;
-    @Getter
-    @Setter
     private PlayerTextures orgTexture;
-    @Getter
-    @Setter
     private String textureKey;
-    @Getter
-    @Setter
     private String textureValue;
-
-    @Getter
-    @Setter
     private String group;
-
-    @Getter
-    @Setter
     private PlayerTextures newTexture;
-    @Getter
     private NamespacedKey Namespacedkey = new NamespacedKey(Main.getPlugin(), "PrisonSkin");
 
     public PlayerObject(UUID uuid, PlayerTextures orgTexture, PlayerTextures newTexture, String textureKey, String textureValue, String group) {
@@ -68,8 +54,7 @@ public class PlayerObject {
 
     public String[] getDataContainer() {
         try {
-            String[] arr = Bukkit.getPlayer(uuid).getPersistentDataContainer().get(Namespacedkey, PersistentDataType.STRING).split("@@");
-            return arr;
+            return Bukkit.getPlayer(uuid).getPersistentDataContainer().get(Namespacedkey, PersistentDataType.STRING).split("@@");
         } catch (NullPointerException ex) {
             return null;
         }

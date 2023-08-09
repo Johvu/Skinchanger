@@ -1,21 +1,17 @@
 package fi.johvu.skinchanger;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.util.RGBLike;
 import net.milkbowl.vault.permission.Permission;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.w3c.dom.css.RGBColor;
 
-import java.awt.*;
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.awt.image.IndexColorModel;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Random;
-import java.util.logging.Level;
-import javax.imageio.ImageIO;
 
 public class Utils {
 

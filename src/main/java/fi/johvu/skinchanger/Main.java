@@ -30,9 +30,9 @@ public final class Main extends JavaPlugin {
     @Getter
     private static Permission perms = null;
     @Getter
-    private static HashSet<Player> queue = new HashSet<Player>();
+    private static final HashSet<Player> queue = new HashSet<>();
     @Getter
-    private static HashMap<UUID, PlayerSkin> players = new HashMap<>();
+    private static final HashMap<UUID, PlayerSkin> players = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -52,7 +52,7 @@ public final class Main extends JavaPlugin {
                 getQueue().remove(p);
                 if (p.isOnline()) {
                     plugin.getServer().getLogger().log(Level.FINE, "Ladataan! " + p.getName());
-                    downloadAndApplySkin(p, "final_" + p.getPlayer().getName(), Utils.getSourceFile(perms, p), p.getPlayerProfile());
+                    downloadAndApplySkin(p, "final_" + p.getName(), Utils.getSourceFile(perms, p), p.getPlayerProfile());
                 }
             }
         }, 10, 500);

@@ -3,7 +3,6 @@ package fi.johvu.skinchanger;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import fi.johvu.skinchanger.commands.SkinsCommand;
-
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -28,18 +27,15 @@ public final class Main extends JavaPlugin {
 
     @Getter
     private static Main plugin;
-
     @Getter
     private static Permission perms = null;
-
     @Getter
-    public static HashSet<Player> queue = new HashSet<Player>();
-
-    public static HashMap<UUID, PlayerObject> playerObject = new HashMap<>();
+    private static HashSet<Player> queue = new HashSet<Player>();
+    @Getter
+    private static HashMap<UUID, PlayerObject> players = new HashMap<>();
 
     @Override
     public void onEnable() {
-
         plugin = this;
         setupPermissions();
         getCommand("skins").setExecutor(new SkinsCommand(this, perms));
@@ -80,26 +76,23 @@ public final class Main extends JavaPlugin {
 
     public void changeSkin(Player p) {
         PlayerProfile playerProfile = p.getPlayerProfile();
-        if (!Main.playerObject.containsKey(p.getUniqueId())) {
+        if (!players.containsKey(p.getUniqueId())) {
             PlayerObject playerObject = new PlayerObject(p.getUniqueId(), p.getPlayerProfile().getTextures(), p.getPlayerProfile().getTextures(), null, null, null);
             try {
-
                 // load data from data container
                 playerObject.LoadFromDataContainer();
-
             } catch (ArrayIndexOutOfBoundsException ignored) {
                 // if data dosent found print it
                 System.out.println("§cDataa ei löydetty luodaan uusi data table!");
             }
             // put object to hashset
-            Main.playerObject.put(p.getUniqueId(), playerObject);
+            players.put(p.getUniqueId(), playerObject);
             System.out.println("§aPelajaa laitettu kantaan!");
-
             p.setPlayerProfile(playerProfile);
         }
 
         // get the object
-        PlayerObject data = Main.playerObject.get(p.getUniqueId());
+        PlayerObject data = players.get(p.getUniqueId());
 
         // check that there is everything in the data
         if (data.getNewTexture() != null && data.getTextureKey() != null && data.getGroup() != null) {
@@ -119,7 +112,8 @@ public final class Main extends JavaPlugin {
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                if (Main.playerObject.get(p.getUniqueId()).getOrgTexture() != null || Main.playerObject.get(p.getUniqueId()).getNewTexture() != null) {
+                if (players.get(p.getUniqueId()).getOrgTexture() != null
+                        || players.get(p.getUniqueId()).getNewTexture() != null) {
                     try {
                         String path = plugin.getDataFolder() + "/skin/";
                         File source_png = new File(path + p.getName() + ".png");
@@ -139,8 +133,8 @@ public final class Main extends JavaPlugin {
                             playerProfile.getTextures().setSkin(null, PlayerTextures.SkinModel.CLASSIC);
 
                             // put the values to the object
-                            Main.playerObject.get(p.getUniqueId()).setTextureKey(skin.data.texture.signature);
-                            Main.playerObject.get(p.getUniqueId()).setTextureValue(skin.data.texture.value);
+                            players.get(p.getUniqueId()).setTextureKey(skin.data.texture.signature);
+                            players.get(p.getUniqueId()).setTextureValue(skin.data.texture.value);
 
                             //put the textures to the player-profile
                             playerProfile.setProperty(new ProfileProperty("textures", skin.data.texture.value, skin.data.texture.signature));
@@ -150,9 +144,9 @@ public final class Main extends JavaPlugin {
                             final_png.delete();
                         });
                         // save the group to the object
-                        Main.playerObject.get(p.getUniqueId()).setGroup(perms.getPrimaryGroup(p));
+                        players.get(p.getUniqueId()).setGroup(perms.getPrimaryGroup(p));
                         // set the new texture
-                        Main.playerObject.get(p.getUniqueId()).setNewTexture(playerProfile.getTextures());
+                        players.get(p.getUniqueId()).setNewTexture(playerProfile.getTextures());
 
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -160,13 +154,11 @@ public final class Main extends JavaPlugin {
                 }
             }
         };
-
         runnable.runTaskAsynchronously(this);
-
         // make delayed task for the save function to be sure that everything is already saved to the object.
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             p.setPlayerProfile(playerProfile);
-            Main.playerObject.get(p.getUniqueId()).SavetoDataContainer();
+            players.get(p.getUniqueId()).SavetoDataContainer();
         }, 150);
     }
 

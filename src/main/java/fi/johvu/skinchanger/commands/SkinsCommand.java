@@ -11,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class SkinsCommand implements CommandExecutor {
     Main plugin;
     Permission perms;
@@ -20,33 +23,33 @@ public class SkinsCommand implements CommandExecutor {
         this.plugin = plugin;
     }
 
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player p) {
+            UUID uuid = p.getUniqueId();
             PlayerProfile PlayerSkin = p.getPlayerProfile();
+            HashMap<UUID, PlayerObject> players = Main.getPlayers();
 
-            if(!Main.playerObject.containsKey(p.getUniqueId()))
-                Main.playerObject.put(p.getUniqueId(), new PlayerObject(p.getUniqueId(), PlayerSkin.getTextures(), null, null, null, null));
-            if (!(p.hasPermission("motimaa.identtiteettivarkaus")))
-                return false;
-
-            if (args.length == 0){
-                p.sendMessage("Laitetaan skini");
-                PlayerSkin.setTextures(Main.playerObject.get(p.getUniqueId()).getOrgTexture());
-                p.setPlayerProfile(PlayerSkin);
-                return false;
+            if (!players.containsKey(uuid)) {
+                players.put(uuid,
+                        new PlayerObject(uuid, PlayerSkin.getTextures(), null, null, null, null));
             }
-            if (args[0].equalsIgnoreCase("skinmerge")){
+
+            if (!(p.hasPermission("motimaa.identtiteettivarkaus"))) {
+                return false;
+            } else if (args.length == 0) {
+                p.sendMessage("Laitetaan skini");
+                PlayerSkin.setTextures(players.get(uuid).getOrgTexture());
+                p.setPlayerProfile(PlayerSkin);
+            } else if (args[0].equalsIgnoreCase("skinmerge")) {
                 p.sendMessage("Yhdistetään skini");
                 plugin.changeSkin(p);
-            }
-            if (args[0].equalsIgnoreCase("null")){
+            } else if (args[0].equalsIgnoreCase("null")) {
                 p.sendMessage("Poistettu skini");
-                Main.playerObject.remove(p.getUniqueId());
+                players.remove(uuid);
                 p.getPersistentDataContainer().remove(new NamespacedKey(Main.getPlugin(), "PrisonSkin"));
             }
-    }
+        }
         return false;
     }
 

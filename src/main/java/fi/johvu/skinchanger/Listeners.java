@@ -7,9 +7,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.UUID;
+
 public class Listeners implements Listener {
-    Main plugin;
-    Permission perms;
+
+    private final Main plugin;
+    private final Permission perms;
+
     public Listeners(Main plugin, Permission perms) {
         this.plugin = plugin;
         this.perms = perms;
@@ -18,15 +24,15 @@ public class Listeners implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-        if (Main.playerObject.containsKey(p.getUniqueId())) {
-
-            PlayerObject data = Main.playerObject.get(p.getUniqueId());
-
+        HashMap<UUID, PlayerObject> players = Main.getPlayers();
+        if (players.containsKey(p.getUniqueId())) {
+            PlayerObject data = players.get(p.getUniqueId());
             // check if the skin or group is changed
-            if (data.getOrgTexture().getSkin() != null && p.getPlayerProfile().getTextures().getSkin() != null || data.getGroup() != null) {
-                if (!data.getOrgTexture().getSkin().equals(p.getPlayerProfile().getTextures().getSkin()) || !data.getGroup().equals(perms.getPrimaryGroup(p))) {
+            URL orgSkin = data.getOrgTexture().getSkin();
+            URL skin = p.getPlayerProfile().getTextures().getSkin();
+            if (orgSkin != null && skin != null || data.getGroup() != null) {
+                if (!orgSkin.equals(skin) || !data.getGroup().equals(perms.getPrimaryGroup(p))) {
                     System.out.println("§eSkini tai grouppi vaihtunut poistetaan Skini data!");
-
                     data.setTextureKey(null);
                     data.setTextureValue(null);
                     data.setGroup(null);

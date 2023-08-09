@@ -80,7 +80,7 @@ public final class Main extends JavaPlugin {
             PlayerObject playerObject = new PlayerObject(p.getUniqueId(), p.getPlayerProfile().getTextures(), p.getPlayerProfile().getTextures(), null, null, null);
             try {
                 // load data from data container
-                playerObject.LoadFromDataContainer();
+                playerObject.loadFromDataContainer();
             } catch (ArrayIndexOutOfBoundsException ignored) {
                 // if data dosent found print it
                 System.out.println("§cDataa ei löydetty luodaan uusi data table!");
@@ -158,7 +158,7 @@ public final class Main extends JavaPlugin {
         // make delayed task for the save function to be sure that everything is already saved to the object.
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             p.setPlayerProfile(playerProfile);
-            players.get(p.getUniqueId()).SavetoDataContainer();
+            players.get(p.getUniqueId()).savetoDataContainer();
         }, 150);
     }
 

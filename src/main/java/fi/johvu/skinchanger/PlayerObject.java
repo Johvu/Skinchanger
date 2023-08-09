@@ -1,19 +1,14 @@
 package fi.johvu.skinchanger;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerTextures;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.UUID;
-import java.util.logging.Level;
 
 @Data
 public class PlayerObject {
@@ -35,13 +30,13 @@ public class PlayerObject {
         this.group = group;
     }
 
-    public void SavetoDataContainer() {
+    public void savetoDataContainer() {
         Bukkit.getPlayer(uuid).getPersistentDataContainer().set(Namespacedkey, PersistentDataType.STRING, toString());
     }
 
-    public String LoadFromDataContainer() {
+    public String loadFromDataContainer() {
         try {
-            String[] arr = Bukkit.getPlayer(uuid).getPersistentDataContainer().get(Namespacedkey, PersistentDataType.STRING).split("@@");
+            String[] arr = getDataContainer();
             this.textureKey = arr[1];
             this.textureValue = arr[2];
             this.orgTexture.setSkin(new URL(arr[3]));

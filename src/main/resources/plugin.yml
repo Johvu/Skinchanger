@@ -2,7 +2,12 @@ name: SkinChanger
 version: '${project.version}'
 main: fi.johvu.skinchanger.Main
 api-version: 1.18
-authors: [ Johvu ]
+authors: [ Johvu, Zoltus ]
 depend: [Vault]
 commands:
   skins:
+    aliases: skin
+    description: Change skin
+
+permissions:
+  skinchanger.skin:

@@ -38,14 +38,14 @@ public class SkinsCommand implements CommandExecutor {
             if (!(p.hasPermission("skinchanger.skin"))) {
                 return false;
             } else if (args.length == 0) {
-                p.sendMessage("Laitetaan skini");
+                p.sendMessage("Applying skin");
                 PlayerSkin.setTextures(players.get(uuid).getOrgTexture());
                 p.setPlayerProfile(PlayerSkin);
             } else if (args[0].equalsIgnoreCase("skinmerge")) {
-                p.sendMessage("Yhdistetään skini");
+                p.sendMessage("Merging skin");
                 plugin.changeSkin(p);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                p.sendMessage("Poistettu skini");
+                p.sendMessage("Skin deleted");
                 players.remove(uuid);
                 p.getPersistentDataContainer().remove(new NamespacedKey(Main.getPlugin(), "Skin"));
             }

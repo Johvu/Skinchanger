@@ -49,7 +49,7 @@ public final class Main extends JavaPlugin {
                 Player p = (Player) getQueue().toArray()[0];
                 getQueue().remove(p);
                 if (p.isOnline()) {
-                    plugin.getServer().getLogger().log(Level.FINE, "Ladataan! " + p.getName());
+                    plugin.getServer().getLogger().log(Level.FINE, "Downloading! " + p.getName());
                     downloadAndApplySkin(p, "final_" + p.getPlayer().getName(), getSourceFile(perms, p), p.getPlayerProfile());
                 }
             }

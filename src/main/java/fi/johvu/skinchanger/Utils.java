@@ -37,7 +37,7 @@ public class Utils {
         outputStream.close();
         inputStream.close();
 
-        System.out.println("§aTiedosto ladattu onnistuneesti.");
+        System.out.println("§aFild downloaded succesfully.");
     }
 
     public static void transferHead(File sourceSkinPath, File targetSkinPath, String name) throws IOException {

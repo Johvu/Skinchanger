@@ -32,7 +32,7 @@ public class Listeners implements Listener {
             URL skin = p.getPlayerProfile().getTextures().getSkin();
             if (orgSkin != null && skin != null || data.getGroup() != null) {
                 if (!orgSkin.equals(skin) || !data.getGroup().equals(perms.getPrimaryGroup(p))) {
-                    System.out.println("§eSkini tai grouppi vaihtunut poistetaan Skini data!");
+                    // skin data changed - downloading
                     data.setTextureKey(null);
                     data.setTextureValue(null);
                     data.setGroup(null);

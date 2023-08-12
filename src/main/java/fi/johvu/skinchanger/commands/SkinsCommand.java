@@ -35,7 +35,7 @@ public class SkinsCommand implements CommandExecutor {
                         new PlayerSkin(uuid, PlayerSkin.getTextures(), null, null, null, null));
             }
 
-            if (!(p.hasPermission("motimaa.identtiteettivarkaus"))) {
+            if (!(p.hasPermission("skinchanger.skin"))) {
                 return false;
             } else if (args.length == 0) {
                 p.sendMessage("Laitetaan skini");
@@ -44,10 +44,10 @@ public class SkinsCommand implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("skinmerge")) {
                 p.sendMessage("Yhdistetään skini");
                 plugin.changeSkin(p);
-            } else if (args[0].equalsIgnoreCase("null")) {
+            } else if (args[0].equalsIgnoreCase("delete")) {
                 p.sendMessage("Poistettu skini");
                 players.remove(uuid);
-                p.getPersistentDataContainer().remove(new NamespacedKey(Main.getPlugin(), "PrisonSkin"));
+                p.getPersistentDataContainer().remove(new NamespacedKey(Main.getPlugin(), "Skin"));
             }
         }
         return false;

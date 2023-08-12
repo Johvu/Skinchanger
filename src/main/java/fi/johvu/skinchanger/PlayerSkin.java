@@ -1,13 +1,17 @@
 package fi.johvu.skinchanger;
 
 import lombok.Data;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerTextures;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 import java.util.UUID;
 
 @Data
@@ -19,7 +23,7 @@ public class PlayerSkin {
     private String textureValue;
     private String group;
     private PlayerTextures newTexture;
-    private NamespacedKey Namespacedkey = new NamespacedKey(Main.getPlugin(), "PrisonSkin");
+    private NamespacedKey Namespacedkey = new NamespacedKey(Main.getPlugin(), "Skin");
 
     public PlayerSkin(UUID uuid, PlayerTextures orgTexture, PlayerTextures newTexture, String textureKey, String textureValue, String group) {
         this.uuid = uuid;
@@ -46,6 +50,8 @@ public class PlayerSkin {
             return null;
         }
     }
+
+
 
     public String[] getDataContainer() {
         try {

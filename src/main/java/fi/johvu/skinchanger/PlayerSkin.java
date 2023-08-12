@@ -35,7 +35,10 @@ public class PlayerSkin {
     }
 
     public void savetoDataContainer() {
-        Bukkit.getPlayer(uuid).getPersistentDataContainer().set(Namespacedkey, PersistentDataType.STRING, toString());
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null) {
+            player.getPersistentDataContainer().set(Namespacedkey, PersistentDataType.STRING, toString());
+        }
     }
 
     public String loadFromDataContainer() {
@@ -46,7 +49,7 @@ public class PlayerSkin {
             this.orgTexture.setSkin(new URL(arr[3]));
             this.group = arr[4];
             return arr[4];
-        } catch (NullPointerException | MalformedURLException ex) {
+        } catch (MalformedURLException ex) {
             return null;
         }
     }
@@ -54,10 +57,12 @@ public class PlayerSkin {
 
 
     public String[] getDataContainer() {
-        try {
-            return Bukkit.getPlayer(uuid).getPersistentDataContainer().get(Namespacedkey, PersistentDataType.STRING).split("@@");
-        } catch (NullPointerException ex) {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player == null) {
             return null;
+        } else {
+            String string = player.getPersistentDataContainer().get(Namespacedkey, PersistentDataType.STRING);
+            return string == null ? null : string.split("@@");
         }
     }
 

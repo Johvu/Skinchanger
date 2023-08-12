@@ -40,28 +40,6 @@ public class Utils {
         System.out.println("§aTiedosto ladattu onnistuneesti.");
     }
 
-    public static File getSourceFile(Permission perms, Player p) {
-
-        String source;
-
-        String[] sources = {"source1.png", "source2.png"};
-
-        String path = String.valueOf(Main.getPlugin().getDataFolder());
-
-        Random ran = new Random();
-
-        source = switch (perms.getPrimaryGroup(p)) {
-            default -> sources[ran.nextInt(sources.length)];
-            case "premium", "premium+", "healper" -> "premium.png";
-            case "motiking", "cteam", "chelper", "cmanager" -> "motiking.png";
-            case "mod", "ultimate" -> "ultimate.png";
-            case "build" -> "build.png";
-            case "admin" -> "admin.png";
-            case "owner" -> "owner.png";
-        };
-        return new File(path + "/" +source);
-    }
-
     public static void transferHead(File sourceSkinPath, File targetSkinPath, String name) throws IOException {
         BufferedImage source = ImageIO.read(sourceSkinPath);
         BufferedImage sourceSkin = new BufferedImage(source.getWidth(), source.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);

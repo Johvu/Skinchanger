@@ -18,9 +18,7 @@ import org.mineskin.SkinOptions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 
 public final class Main extends JavaPlugin {
@@ -52,7 +50,7 @@ public final class Main extends JavaPlugin {
                 getQueue().remove(p);
                 if (p.isOnline()) {
                     plugin.getServer().getLogger().log(Level.FINE, "Ladataan! " + p.getName());
-                    downloadAndApplySkin(p, "final_" + p.getPlayer().getName(), Utils.getSourceFile(perms, p), p.getPlayerProfile());
+                    downloadAndApplySkin(p, "final_" + p.getPlayer().getName(), getSourceFile(perms, p), p.getPlayerProfile());
                 }
             }
         }, 10, 500);
@@ -160,6 +158,19 @@ public final class Main extends JavaPlugin {
             p.setPlayerProfile(playerProfile);
             players.get(p.getUniqueId()).savetoDataContainer();
         }, 150);
+    }
+
+    public File getSourceFile(Permission perms, Player p) {
+        String source;
+
+        String path = String.valueOf(Main.getPlugin().getDataFolder());
+
+        source = getConfig().getString("skins." + perms.getPrimaryGroup(p));
+
+        if (Objects.equals(source, ""))
+            source = "default.png";
+
+        return new File(path + "/" +source);
     }
 
     private boolean setupPermissions() {
